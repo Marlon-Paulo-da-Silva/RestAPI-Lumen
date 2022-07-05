@@ -11,33 +11,47 @@ class PostController extends Controller
     {
         return Post::all();
     }
-
+    
     public function store(Request $request)
     {
         try {
             $post = new Post();
             $post->title = $request->title;
             $post->body = $request->body;
-
+            
             if($post->save()){
                 return response()->json(['status' => 'success', 'message' => 'Post criado com sucesso' ]);
             }
         } catch (\Throwable $th) {
-            return response()->json(['status' => 'error', 'message' => $e->getMessage() ]);
+            return response()->json(['status' => 'error', 'message' => $th->getMessage() ]);
         }
     }
-
+    
     public function update(Request $request, $id){
         try {
             $post = Post::findOrFail($id);
             $post->title = $request->title;
             $post->body = $request->body;
-
+            
             if($post->save()){
                 return response()->json(['status' => 'success', 'message' => 'Post atualizado com sucesso' ]);
             }
         } catch (\Throwable $th) {
-            return response()->json(['status' => 'error', 'message' => $e->getMessage() ]);
+            return response()->json(['status' => 'error', 'message' => $th->getMessage() ]);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $post = Post::findOrFail($id);
+            
+            
+            if($post->delete()){
+                return response()->json(['status' => 'success', 'message' => 'Post deletado com sucesso' ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'error', 'message' => $th->getMessage() ]);
         }
     }
 }
