@@ -48,7 +48,7 @@ class PostController extends Controller
             
             
             if($post->delete()){
-                return response()->json(['status' => 'success', 'message' => 'Post deletado com sucesso' ]);
+                return response()->json(['status' => 'success', 'message' => 'Post deletado com sucesso !!' ]);
             }
         } catch (\Throwable $th) {
             return response()->json(['status' => 'error', 'message' => $th->getMessage() ]);
